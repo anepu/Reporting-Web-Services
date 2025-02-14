@@ -1,4 +1,4 @@
-('C:\\temp\\Reporting Web Service\\build\\reporting_web_services\\PYZ-00.pyz',
+('C:\\temp\\Reporting Web Services\\build\\reporting_web_services\\PYZ-00.pyz',
  [('__future__',
    'C:\\Users\\anepu\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\__future__.py',
    'PYMODULE'),

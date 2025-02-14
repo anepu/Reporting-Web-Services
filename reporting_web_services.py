@@ -1,4 +1,3 @@
-import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 from tkcalendar import DateEntry  # Import DateEntry from tkcalendar
 import requests
@@ -102,7 +101,7 @@ root = tk.Tk()
 root.title("Office 365 Reporting Web Services - MessageTrace")
 
 # Set the window icon (favicon)
-root.iconbitmap(r"C:\TEMP\Reporting Web Service\Logo_RWS.ico")
+root.iconbitmap(r"C:\TEMP\Reporting Web Services\Logo_RWS.ico")
 
 main_frame = ttk.Frame(root, padding="10")
 main_frame.grid(row=0, column=0, sticky="NSEW")

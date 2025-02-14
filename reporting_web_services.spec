@@ -5,7 +5,7 @@ a = Analysis(
     ['reporting_web_services.py'],
     pathex=[],
     binaries=[],
-    datas=[('C:\\TEMP\\Reporting Web Service\\Logo_RWS.ico', '.'), ('C:\\TEMP\\Reporting Web Service\\Logo_RWS.png', '.')],
+    datas=[('C:\\TEMP\\Reporting Web Services\\Logo_RWS.ico', '.'), ('C:\\TEMP\\Reporting Web Services\\Logo_RWS.png', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['C:\\TEMP\\Reporting Web Service\\Logo_RWS.ico'],
+    icon=['C:\\TEMP\\Reporting Web Services\\Logo_RWS.ico'],
 )
