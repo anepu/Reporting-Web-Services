@@ -1,10 +1,12 @@
+import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-from tkcalendar import DateEntry  # Import DateEntry from tkcalendar
+from tkcalendar import DateEntry
 import requests
 from datetime import datetime, timedelta
 import threading
-import os  # For folder handling
-import subprocess  # For opening File Explorer
+import os
+import subprocess
+import sys
 
 def get_message_trace_report():
     def background_task():
@@ -13,8 +15,8 @@ def get_message_trace_report():
             app_id = app_id_entry.get().strip()
             tenant_id = tenant_id_entry.get().strip()
             app_secret = app_secret_entry.get().strip()
-            start_date = start_date_entry.get_date().strftime('%Y-%m-%d')  # Format to YYYY-MM-DD
-            end_date = end_date_entry.get_date().strftime('%Y-%m-%d')  # Format to YYYY-MM-DD
+            start_date = start_date_entry.get_date().strftime('%Y-%m-%d')
+            end_date = end_date_entry.get_date().strftime('%Y-%m-%d')
             save_path = save_path_var.get()
 
             # Validate inputs
@@ -67,7 +69,7 @@ def get_message_trace_report():
                 return
 
             # Save the report
-            output_path = f"{save_path}/MessageTraceReport_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xml"
+            output_path = os.path.join(save_path, f"MessageTraceReport_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xml")
             with open(output_path, "wb") as file:
                 file.write(response.content)
 
@@ -101,7 +103,15 @@ root = tk.Tk()
 root.title("Office 365 Reporting Web Services - MessageTrace")
 
 # Set the window icon (favicon)
-root.iconbitmap(r"C:\TEMP\Reporting Web Services\Logo_RWS.ico")
+if getattr(sys, 'frozen', False):
+    icon_path = os.path.join(sys._MEIPASS, 'Logo_RWS.ico')
+else:
+    icon_path = os.path.abspath("Logo_RWS.ico")
+
+try:
+    root.iconbitmap(icon_path)
+except Exception as e:
+    print(f"Error loading icon: {e}")
 
 main_frame = ttk.Frame(root, padding="10")
 main_frame.grid(row=0, column=0, sticky="NSEW")
@@ -123,27 +133,17 @@ app_secret_entry.grid(row=2, column=1, padx=5, pady=5)
 
 # Start Date (using DateEntry)
 ttk.Label(main_frame, text="Start Date:").grid(row=3, column=0, sticky="W")
-start_date_entry = DateEntry(main_frame, width=50, date_pattern="yyyy-mm-dd")  # Display format
-
-# Get today's date and calculate 10 days ago
-today = datetime.today()
-ten_days_ago = today - timedelta(days=10)
-
-# Set the mindate to 10 days ago and maxdate to today
-start_date_entry.config(mindate=ten_days_ago, maxdate=today)
+start_date_entry = DateEntry(main_frame, width=50, date_pattern="yyyy-mm-dd")
 start_date_entry.grid(row=3, column=1, padx=5, pady=5)
 
 # End Date (using DateEntry)
 ttk.Label(main_frame, text="End Date:").grid(row=4, column=0, sticky="W")
-end_date_entry = DateEntry(main_frame, width=50, date_pattern="yyyy-mm-dd")  # Display format
+end_date_entry = DateEntry(main_frame, width=50, date_pattern="yyyy-mm-dd")
 end_date_entry.grid(row=4, column=1, padx=5, pady=5)
 
 # Default Save Path
-default_save_path = r"C:\temp\ReportingWebServices"
-if not os.path.exists(default_save_path):
-    os.makedirs(default_save_path)
-
-save_path_var = tk.StringVar(value=default_save_path)  # Set default path
+default_save_path = os.getenv("TEMP")  # Use the system's temp folder
+save_path_var = tk.StringVar(value=default_save_path)
 
 # Save Path
 ttk.Label(main_frame, text="Save Path:").grid(row=5, column=0, sticky="W")
