@@ -1,4 +1,3 @@
-# Get-MessageTraceReport.ps1
 # By Andrei Epure, Microsoft Ltd. 2025. Use at your own risk. No warranties are given.
 # DISCLAIMER:
 # THIS CODE IS SAMPLE CODE. THESE SAMPLES ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
